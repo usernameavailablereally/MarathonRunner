@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Core.Services.Events;
+using Core.Services.Loaders;
 using Core.Services.Match;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,15 +14,17 @@ namespace Core.Services
     {
         private readonly IMatchService _matchService;
         private readonly IDispatcherService _dispatcherService;
+        private readonly IAssetsLoader _assetsLoader;
         private CancellationTokenSource _gameStartCancellationTokenSource;
         private bool _isRestarting;
         private bool _disposed;
 
         [Inject]
-        public EntryPointService(IMatchService matchService, IDispatcherService dispatcherService)
+        public EntryPointService(IMatchService matchService, IAssetsLoader assetsLoader, IDispatcherService dispatcherService)
         {
             _matchService = matchService ?? throw new ArgumentNullException(nameof(matchService));
             _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService));
+            _assetsLoader = assetsLoader ?? throw new ArgumentNullException(nameof(assetsLoader));
             _dispatcherService.Subscribe<RestartGameEvent>(OnRestartTriggered);
         }
 
@@ -31,7 +34,7 @@ namespace Core.Services
         
             _gameStartCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
         
-            await _matchService.BuildScene(_gameStartCancellationTokenSource.Token);
+            await _matchService.BuildScene(_assetsLoader, _gameStartCancellationTokenSource.Token);
             await _matchService.RunGame();
         }
 

@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Obstacle
+  - Ground
+  - Suelo
+  - Undefined
   layers:
   - Default
   - TransparentFX
@@ -12,8 +16,8 @@ TagManager:
   - Water
   - UI
   - ItemLayer
-  - 
-  - 
+  - Obstacle
+  - Ground
   - 
   - 
   - 

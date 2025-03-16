@@ -1,8 +1,8 @@
-using Core.Controllers;
 using Core.Services;
 using Core.Services.Events;
-using Core.Services.Loaders.Configs;
-using Core.Services.Match;
+using Core.Utils;
+using Game.MonoBehaviourComponents;
+using Game.Services;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -10,6 +10,7 @@ using VContainer.Unity;
 public class GameLifetimeScope : LifetimeScope
 {
     [SerializeField] private Camera _mainCamera;
+    [SerializeField] private LevelManagerComponent _levelManager;
         
     protected override void Configure(IContainerBuilder builder)
     {            
@@ -25,17 +26,19 @@ public class GameLifetimeScope : LifetimeScope
     private void ValidateSerializedFields()
     {
         if (_mainCamera == null) throw new MissingReferenceException($"{nameof(_mainCamera)} is not assigned");
+        if (_levelManager == null) throw new MissingReferenceException($"{nameof(_levelManager)} is not assigned");
     }    
         
     private void RegisterMonoComponents(IContainerBuilder builder)
     {
         builder.RegisterComponent(_mainCamera);
+        builder.RegisterComponent(_levelManager);
     } 
     private void RegisterInterfaces(IContainerBuilder builder)
     {
-        builder.Register<GameInputController>(Lifetime.Singleton).As<ITickable>();
+        builder.Register<GameInputService>(Lifetime.Singleton).As<ITickable>();
         builder.Register<AssetsHelper>(Lifetime.Singleton).AsImplementedInterfaces();
-        builder.Register<MatchService>(Lifetime.Singleton).AsImplementedInterfaces();
+        builder.Register<GameMatchService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<DispatcherService>(Lifetime.Singleton).AsImplementedInterfaces();
     }
     

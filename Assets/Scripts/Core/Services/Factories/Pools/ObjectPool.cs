@@ -16,7 +16,7 @@ namespace Core.Services.Factories.Pools
         {
             if (_objects.Count <= 0)
             {
-                // No overflow support needed, since the ItemsPerRound and RoundCount are fixed.
+                // No overflow support needed, since the pool size is fixed
                 throw new Exception("Error in getting item. Pool does not support overflow.");
             }
             

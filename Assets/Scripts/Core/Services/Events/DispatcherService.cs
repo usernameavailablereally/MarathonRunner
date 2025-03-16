@@ -28,14 +28,14 @@ namespace Core.Services.Events
 
         public void Dispatch(GameEventBase eventData)
         {
-            var eventType = eventData.GetType();
+            Type eventType = eventData.GetType();
             if (!_processingEvents.TryAdd(eventType, 0)) return;
 
             try
             {
-                if (_eventListeners.TryGetValue(eventType, out var handler))
+                if (_eventListeners.TryGetValue(eventType, out Delegate handler))
                 {
-                    foreach (var d in handler.GetInvocationList())
+                    foreach (Delegate d in handler.GetInvocationList())
                     {
                         try
                         {
@@ -43,7 +43,7 @@ namespace Core.Services.Events
                         }
                         catch (Exception e)
                         {
-                            Debug.LogError($"Handler error: {e.Message}");
+                            return;
                         }
                     }
                 }
@@ -65,7 +65,5 @@ namespace Core.Services.Events
             _processingEvents.Clear();
             GC.SuppressFinalize(this);
         }
-
-        ~DispatcherService() => Dispose();
     }
 }

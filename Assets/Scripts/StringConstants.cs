@@ -1,6 +1,9 @@
+using UnityEngine;
+
 internal static class StringConstants
 {
-    public const string URP_SHADER_PATH = "Standard";
     public const string MATCH_CONFIG_ADDRESS = "MatchConfig";
-    public const string ITEM_RAYCAST_LAYER = "ItemLayer";
+    public const string OBSTACLE_LAYER = "Obstacle";
+    public const string GROUND_LAYER = "Ground";
+    public static readonly int JumpTriggerName = Animator.StringToHash("Jump");
 }

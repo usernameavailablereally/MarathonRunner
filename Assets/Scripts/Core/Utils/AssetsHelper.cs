@@ -1,17 +1,16 @@
 using System.Threading;
+using Core.Services.Loaders;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Assertions;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Core.Services.Loaders.Configs
+namespace Core.Utils
 {
     public class AssetsHelper : IAssetsLoader
     { 
-        public async UniTask<MatchConfig> LoadAndValidateMatchConfig(CancellationToken cancellationToken)
+        public async UniTask<T> LoadAssetWithCancellation<T>(string assetName, CancellationToken cancellationToken)
         {
-            var matchConfig = await LoadAssetAsync<MatchConfig>(StringConstants.MATCH_CONFIG_ADDRESS, cancellationToken);
-            ValidateMatchConfigAsserts(matchConfig);
+            var matchConfig = await LoadAssetAsync<T>(assetName, cancellationToken);
             return matchConfig;
         }
         
@@ -19,12 +18,6 @@ namespace Core.Services.Loaders.Configs
         {
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(address);
             return handle.ToUniTask(cancellationToken: cancellationToken);
-        }
-
-        private void ValidateMatchConfigAsserts(MatchConfig config)
-        {
-            Assert.IsNotNull(config, "MatchConfig is null");
-            Assert.IsTrue(config.ItemPrefabs.Length > 0, "ItemPrefabs array is empty");
-        }
+        } 
     }
 }

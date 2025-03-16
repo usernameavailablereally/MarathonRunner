@@ -12,9 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f7d58fb82c4d8c961bbef2302616aa, type: 3}
   m_Name: MatchConfig
   m_EditorClassIdentifier: 
-  ItemPrefabs:
-  - m_AssetGUID: c2b136e256b74428bb504420e53ce319
+  RunnerPrefab:
+    m_AssetGUID: 45ea58022d18a49ff96c90bd0ad48962
     m_SubObjectName: 
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  ColumnPrefab:
+    m_AssetGUID: 3a9b6745d815a463ca460b5fddf41158
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ObstacleDatas:
+  - ObstaclePrefab:
+      m_AssetGUID: facef30d4e7794a88a0be255cf432f30
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    ProportionInPool: 30
+  - ObstaclePrefab:
+      m_AssetGUID: 121e20f53e41b478889fc002f67a7b75
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    ProportionInPool: 70
+  AmountObstaclesInPool: 11
+  MaxObstaclesOnScene: 5

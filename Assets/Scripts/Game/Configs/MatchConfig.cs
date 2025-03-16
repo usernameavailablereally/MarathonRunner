@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Game.Configs
 {
@@ -9,18 +8,16 @@ namespace Game.Configs
     [Serializable]
     public class MatchConfig : ScriptableObject
     { 
-        [Tooltip("Player prefab")]
-        public AssetReference RunnerPrefab;
-        [Tooltip("Columns prefabs")]   
-        public AssetReference ColumnPrefab;
-        [Tooltip("Obstacle data")]   
-        public ObstacleData[] ObstacleDatas; 
-        [Tooltip("Amount of obstacles in the pool. \n " +
-                 "ObstaclesPrefabs will be duplicated to reach this amount")] 
-        [Range(0, 100)]
-        public int AmountObstaclesInPool;
+        [Tooltip("General velocity of level movement")]
+        public float MovingVelocity = 2;
         [Tooltip("How many obstacles is allowed on scene at once")]
         [Range(0, 10)]
         public int MaxObstaclesOnScene;
+        [Tooltip("Minimum time interval for obstacles spawn (sec)")]
+        [Range(0, 10)]
+        public float SpawnObstacleInterval = 2f;
+        [Tooltip("Possibility of obstacle spawn after Minimum interval")]
+        [Range(0, 1)]
+        public float SpawnObstacleThreshold = 0.5f;
     }
 }

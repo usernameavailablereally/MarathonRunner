@@ -5,17 +5,18 @@ namespace Game.MonoBehaviourComponents
     public class BackgroundRunnerComponent : MonoBehaviour
     {
         [SerializeField] private Renderer _background;
-        [SerializeField] private float _velocity = 2; 
+        [SerializeField] private float _velocity = 2;
         private bool _isActive = false;
-
-        public void Run()
+        public void Activate()
         {
             _isActive = true;
+            gameObject.SetActive(true);
         }
-    
-        public void Stop()
+
+        public void Deactivate()
         {
             _isActive = false;
+            gameObject.SetActive(false);
         }
 
         private void Update()
@@ -24,11 +25,6 @@ namespace Game.MonoBehaviourComponents
             {
                 _background.material.mainTextureOffset += new Vector2(0.015f, 0) * (_velocity * Time.deltaTime);
             }
-        }
-
-        public void Dispose()
-        {
-            _isActive = false;
         }
     }
 }

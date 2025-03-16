@@ -1,5 +1,5 @@
 using Core.Services.Events;
-using Game.MonoBehaviourComponents;
+using Game.MonoBehaviourComponents.Objects;
 
 namespace Game.Events
 {

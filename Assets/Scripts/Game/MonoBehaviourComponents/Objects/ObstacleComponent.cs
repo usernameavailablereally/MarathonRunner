@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.MonoBehaviourComponents
+namespace Game.MonoBehaviourComponents.Objects
 {
     public class ObstacleComponent : MonoBehaviour
     {

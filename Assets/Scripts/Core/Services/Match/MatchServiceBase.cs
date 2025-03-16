@@ -1,9 +1,7 @@
 using System;
 using System.Threading;
 using Core.Services.Events;
-using Core.Services.Loaders;
 using Cysharp.Threading.Tasks;
-using Game.Events;
 using UnityEngine;
 
 namespace Core.Services.Match
@@ -13,17 +11,15 @@ namespace Core.Services.Match
         private readonly IDispatcherService _dispatcherService;
 
         protected CancellationTokenSource RoundTokenSource;
-        private IMatchData _matchData;
 
         protected MatchServiceBase(IDispatcherService dispatcherService)
         { 
             _dispatcherService = dispatcherService; 
         }
 
-        public virtual UniTask BuildScene(IAssetsLoader assetsLoader, CancellationToken buildCancellationToken)
+        public virtual UniTask BuildScene(CancellationToken buildCancellationToken)
         {
             _dispatcherService.Subscribe<RoundOverEvent>(OnRoundOver);
-            _dispatcherService.Subscribe<RoundStartEvent>(OnRoundStart);
             return UniTask.CompletedTask;
         }
 
@@ -31,7 +27,6 @@ namespace Core.Services.Match
         {
             try
             {
-                _matchData = new MatchDataBase();
                 await StartRound();
             }
             catch (OperationCanceledException)
@@ -54,11 +49,6 @@ namespace Core.Services.Match
 
         protected abstract void DisposeRound();
 
-        private bool IsGameFinished()
-        {
-            return false;
-        }
-
         private void OnRoundOver(RoundOverEvent obj)
         {
             try
@@ -69,11 +59,6 @@ namespace Core.Services.Match
             {
                Debug.LogError(e);
             }
-        }
-
-        private void OnRoundStart(RoundStartEvent obj)
-        {
-            RunGame().Forget();
         }
 
         public void Dispose()

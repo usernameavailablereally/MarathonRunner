@@ -1,6 +1,6 @@
 using Core.Services;
 using Core.Services.Events;
-using Core.Utils;
+using Game.Configs;
 using Game.MonoBehaviourComponents;
 using Game.Services;
 using UnityEngine;
@@ -8,15 +8,18 @@ using VContainer;
 using VContainer.Unity;
 
 public class GameLifetimeScope : LifetimeScope
-{
+{ 
+    [SerializeField] private MatchConfig _matchConfig;
+    [SerializeField] private AssetsConfig _assetsConfig;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private LevelManagerComponent _levelManager;
+    [SerializeField] private GameOverLayerComponent _gameOverLayer;
         
     protected override void Configure(IContainerBuilder builder)
     {            
         ValidateSerializedFields();
             
-        RegisterMonoComponents(builder);
+        RegisterSceneComponents(builder);
             
         RegisterInterfaces(builder);
             
@@ -27,17 +30,22 @@ public class GameLifetimeScope : LifetimeScope
     {
         if (_mainCamera == null) throw new MissingReferenceException($"{nameof(_mainCamera)} is not assigned");
         if (_levelManager == null) throw new MissingReferenceException($"{nameof(_levelManager)} is not assigned");
+        if (_matchConfig == null) throw new MissingReferenceException($"{nameof(_matchConfig)} is not assigned");
+        if (_assetsConfig == null) throw new MissingReferenceException($"{nameof(_assetsConfig)} is not assigned");
+        if (_gameOverLayer == null) throw new MissingReferenceException($"{nameof(_gameOverLayer)} is not assigned");
     }    
         
-    private void RegisterMonoComponents(IContainerBuilder builder)
+    private void RegisterSceneComponents(IContainerBuilder builder)
     {
+        builder.RegisterInstance(_matchConfig);
+        builder.RegisterInstance(_assetsConfig);
         builder.RegisterComponent(_mainCamera);
         builder.RegisterComponent(_levelManager);
+        builder.RegisterComponent(_gameOverLayer);
     } 
     private void RegisterInterfaces(IContainerBuilder builder)
     {
         builder.Register<GameInputService>(Lifetime.Singleton).As<ITickable>();
-        builder.Register<AssetsHelper>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<GameMatchService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<DispatcherService>(Lifetime.Singleton).AsImplementedInterfaces();
     }

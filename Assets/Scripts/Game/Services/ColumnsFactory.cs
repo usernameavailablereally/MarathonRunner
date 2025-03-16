@@ -3,29 +3,27 @@ using System.Threading;
 using System.Threading.Tasks;
 using Core.Services.Factories;
 using Game.Configs;
-using Game.MonoBehaviourComponents;
+using Game.MonoBehaviourComponents.Objects;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Game.Services
 {
     public class ColumnsFactory : AssetsFactoryBase
     {
-        private const int COLUMNS_CEILING_COUNT = 20;
+        private const int COLUMNS_CEILING_COUNT = 25;
         // no pool needed, as only position changes
         private readonly List<ColumnComponent> _columns = new();
         
-        public async Task Init(MatchConfig matchConfig, CancellationToken buildCancellationToken)
+        public async Task Init(AssetsConfig assetsConfig, CancellationToken buildCancellationToken)
         {
-            ValidateColumnsConfigAsserts(matchConfig);
+            ValidateColumnsConfigAsserts(assetsConfig);
             try
             {
                 for (var i = 0; i < COLUMNS_CEILING_COUNT; i++)
                 {
-                    var column = await LoadPrefab<ColumnComponent>(matchConfig.ColumnPrefab, buildCancellationToken);
+                    var column = await LoadPrefab<ColumnComponent>(assetsConfig.ColumnPrefab, buildCancellationToken);
                     _columns.Add(column);
                 }
-                Debug.Log($"Loaded {_columns.Count} columns");
             }
             catch
             {
@@ -39,10 +37,10 @@ namespace Game.Services
             return _columns;
         }
 
-        private void ValidateColumnsConfigAsserts(MatchConfig matchConfig)
+        private void ValidateColumnsConfigAsserts(AssetsConfig assetsConfig)
         {
-            Assert.IsNotNull(matchConfig, "MatchConfig is null");
-            Assert.IsNotNull(matchConfig.ColumnPrefab, "Column is null");
+            Assert.IsNotNull(assetsConfig, "AssetsConfig is null");
+            Assert.IsNotNull(assetsConfig.ColumnPrefab, "Column is null");
         }
     }
 }

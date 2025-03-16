@@ -2,7 +2,7 @@ using System.Threading;
 using Core.Services.Factories;
 using Cysharp.Threading.Tasks;
 using Game.Configs;
-using Game.MonoBehaviourComponents;
+using Game.MonoBehaviourComponents.Objects;
 using NUnit.Framework;
 using VContainer;
 
@@ -18,12 +18,12 @@ namespace Game.Services
             _resolver = resolver;
         }
         
-        public async UniTask Init(MatchConfig matchConfig, CancellationToken cancellationToken)
+        public async UniTask Init(AssetsConfig assetsConfig, CancellationToken cancellationToken)
         {
-            ValidateMatchConfigAsserts(matchConfig);
+            ValidateMatchConfigAsserts(assetsConfig);
             try
             {
-                _runnerInstance = await LoadPrefab<RunnerControllerComponent>(matchConfig.RunnerPrefab, cancellationToken);
+                _runnerInstance = await LoadPrefab<RunnerControllerComponent>(assetsConfig.RunnerPrefab, cancellationToken);
                 _resolver.Inject(_runnerInstance);
             }
             catch
@@ -33,10 +33,10 @@ namespace Game.Services
             }
         }
         
-        private void ValidateMatchConfigAsserts(MatchConfig matchConfig)
+        private void ValidateMatchConfigAsserts(AssetsConfig assetsConfig)
         {
-            Assert.IsNotNull(matchConfig, "MatchConfig is null");
-            Assert.IsNotNull(matchConfig.RunnerPrefab, "Runner is null");
+            Assert.IsNotNull(assetsConfig, "AssetsConfig is null");
+            Assert.IsNotNull(assetsConfig.RunnerPrefab, "Runner is null");
         }
 
         public RunnerControllerComponent GetRunnerInstance()

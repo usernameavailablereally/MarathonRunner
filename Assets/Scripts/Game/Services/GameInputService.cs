@@ -33,15 +33,17 @@ namespace Game.Services
             {
                 _dispatcherService.Dispatch(new RestartEntryPointEvent());
             }
-            //
+            // Forcing Game Over
             if (Input.GetKeyDown(KeyCode.O))
             {
                 _dispatcherService.Dispatch(new RoundOverEvent());
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            // Pausing round
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                _dispatcherService.Dispatch(new RoundStartEvent());
+                _dispatcherService.Dispatch(new RoundPauseStopEvent());
             }
+            
         }
 
         private void CheckForMouseInput()

@@ -1,16 +1,15 @@
 using System.Threading;
 using Core.Services.Events;
 using Core.Services.Match;
+using Game.Configs;
 using Game.Events;
-using Game.MonoBehaviourComponents;
+using Game.MonoBehaviourComponents.Objects;
 using UnityEngine;
 
 namespace Game.Services
 {
     public class RoundLogic : IRoundLogic
     {
-        private const float SPAWN_THRESHOLD = 0.5f; 
-        private const float SPAWN_OBSTACLE_INTERVAL = 1f;
         private readonly IDispatcherService _dispatcherService;
         private readonly ObstaclesFactory _obstaclesFactory;
 
@@ -18,9 +17,11 @@ namespace Game.Services
         private CancellationToken _roundCancellationToken;
         private bool _isRoundRunning;
         private float _timeSinceLastSpawn;
+        readonly MatchConfig _matchConfig;
 
-        public RoundLogic(IDispatcherService dispatcherService, ObstaclesFactory obstaclesFactory)
+        public RoundLogic(MatchConfig matchConfig, IDispatcherService dispatcherService, ObstaclesFactory obstaclesFactory)
         {
+            _matchConfig = matchConfig;
             _dispatcherService = dispatcherService;
             _obstaclesFactory = obstaclesFactory;
         }
@@ -31,7 +32,7 @@ namespace Game.Services
             _timeSinceLastSpawn = 0f;
             _isRoundRunning = true;
             _dispatcherService.Dispatch(new RoundStartEvent());
-            
+
             _dispatcherService.Subscribe<ObstacleFinishedEvent>(OnObstacleFinished);
         }
 
@@ -44,23 +45,39 @@ namespace Game.Services
         public void OnTick()
         {
             if (!_isRoundRunning) return;
-            
+
             _timeSinceLastSpawn += Time.deltaTime;
 
-            if (!(_timeSinceLastSpawn >= SPAWN_OBSTACLE_INTERVAL)) return;
-            
-            SpawnObstacleIfRandom();
+            if (!CanSpawnObstacleByTime(_timeSinceLastSpawn)) return;
+
             _timeSinceLastSpawn = 0f;
+
+            if (CanSpawnObstacleByLimit() && CanSpawnObstacleByThreshold())
+            {
+                SpawnObstacle();
+            }
         }
 
-        private void SpawnObstacleIfRandom()
+        private bool CanSpawnObstacleByTime(float timeSinceLastSpawn)
+        {
+            return timeSinceLastSpawn >= _matchConfig.SpawnObstacleInterval;
+        }
+
+        private bool CanSpawnObstacleByThreshold()
         {
             float randomChance = Random.Range(0f, 1f);  
-            if (randomChance <= SPAWN_THRESHOLD)
-            {    
-                ObstacleComponent randomObstacle = _obstaclesFactory.GetRandomObstacle();
-                _dispatcherService.Dispatch(new SpawnObstacleRequested(randomObstacle));
-            }
+            return randomChance <= _matchConfig.SpawnObstacleThreshold;
+        }
+
+        private bool CanSpawnObstacleByLimit()
+        {
+            return _obstaclesFactory.SpawnedObstaclesCount < _matchConfig.MaxObstaclesOnScene;
+        }
+
+        private void SpawnObstacle()
+        {
+            ObstacleComponent randomObstacle = _obstaclesFactory.GetRandomObstacle();
+            _dispatcherService.Dispatch(new SpawnObstacleRequested(randomObstacle));
         }
 
         private void OnObstacleFinished(ObstacleFinishedEvent data)

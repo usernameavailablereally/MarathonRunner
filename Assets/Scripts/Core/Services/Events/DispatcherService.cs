@@ -48,7 +48,7 @@ namespace Core.Services.Events
                         {
                             d.DynamicInvoke(eventData);
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             return;
                         }

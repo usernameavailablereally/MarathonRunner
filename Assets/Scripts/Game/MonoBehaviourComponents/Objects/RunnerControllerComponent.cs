@@ -4,7 +4,7 @@ using Game.Events;
 using UnityEngine;
 using VContainer;
 
-namespace Game.MonoBehaviourComponents
+namespace Game.MonoBehaviourComponents.Objects
 {
     public class RunnerControllerComponent : MonoBehaviour, IDisposable
     {

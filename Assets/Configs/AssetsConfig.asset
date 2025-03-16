@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c48726ebe0884e219583906626a5727b, type: 3}
+  m_Name: AssetsConfig
+  m_EditorClassIdentifier: 
+  RunnerPrefab:
+    m_AssetGUID: 45ea58022d18a49ff96c90bd0ad48962
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ColumnPrefab:
+    m_AssetGUID: 3a9b6745d815a463ca460b5fddf41158
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ObstacleDatas:
+  - ObstaclePrefab:
+      m_AssetGUID: facef30d4e7794a88a0be255cf432f30
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    ProportionInPool: 40
+  - ObstaclePrefab:
+      m_AssetGUID: 121e20f53e41b478889fc002f67a7b75
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    ProportionInPool: 40
+  - ObstaclePrefab:
+      m_AssetGUID: f88aba93f97f640cbb64e7d5cb2605e0
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    ProportionInPool: 20
+  AmountObstaclesInPool: 10

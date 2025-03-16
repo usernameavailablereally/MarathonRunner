@@ -25,7 +25,7 @@ namespace Core.Services
             _matchService = matchService ?? throw new ArgumentNullException(nameof(matchService));
             _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService));
             _assetsLoader = assetsLoader ?? throw new ArgumentNullException(nameof(assetsLoader));
-            _dispatcherService.Subscribe<RestartGameEvent>(OnRestartTriggered);
+            _dispatcherService.Subscribe<RestartEntryPointEvent>(OnRestartTriggered);
         }
 
         public async UniTask StartAsync(CancellationToken cancellation)
@@ -38,7 +38,7 @@ namespace Core.Services
             await _matchService.RunGame();
         }
 
-        private void OnRestartTriggered(RestartGameEvent data)
+        private void OnRestartTriggered(RestartEntryPointEvent data)
         {
             if (_isRestarting || _disposed) return;
             Debug.Log("<color=white>Restarting game...</color>");
@@ -81,7 +81,7 @@ namespace Core.Services
             _gameStartCancellationTokenSource?.Cancel();
             _gameStartCancellationTokenSource?.Dispose();
             _gameStartCancellationTokenSource = null;
-            _dispatcherService.Unsubscribe<RestartGameEvent>(OnRestartTriggered);
+            _dispatcherService.Unsubscribe<RestartEntryPointEvent>(OnRestartTriggered);
             _dispatcherService.ClearAllSubscriptions();
         }
     }

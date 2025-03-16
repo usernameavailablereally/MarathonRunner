@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f88aba93f97f640cbb64e7d5cb2605e0
+    m_Address: Assets/Prefabs/Obstacle3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: facef30d4e7794a88a0be255cf432f30
     m_Address: Assets/Prefabs/Piedra1.prefab
     m_ReadOnly: 0

@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _velocity: 2
   _runnerSpawnPoint: {fileID: 2069268941}
+  _backgroundRunnerComponent: {fileID: 1639122160}
 --- !u!4 &12300762
 Transform:
   m_ObjectHideFlags: 0
@@ -515,7 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _background: {fileID: 1639122161}
-  velocidad: 2
+  _velocity: 2
 --- !u!23 &1639122161
 MeshRenderer:
   m_ObjectHideFlags: 0

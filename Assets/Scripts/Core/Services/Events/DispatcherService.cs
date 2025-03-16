@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Concurrent;
-using UnityEngine;
 
 namespace Core.Services.Events
 {
@@ -20,10 +19,18 @@ namespace Core.Services.Events
 
         public void Unsubscribe<T>(Action<T> listener) where T : GameEventBase
         {
-            _eventListeners.AddOrUpdate(
-                typeof(T),
-                _ => null,
-                (_, existing) => Delegate.Remove(existing, listener));
+            if (_eventListeners.TryGetValue(typeof(T), out Delegate existing))
+            {
+                Delegate current = Delegate.Remove(existing, listener);
+                if (current == null)
+                {
+                    _eventListeners.TryRemove(typeof(T), out _);
+                }
+                else
+                {
+                    _eventListeners[typeof(T)] = current;
+                }
+            }
         }
 
         public void Dispatch(GameEventBase eventData)
@@ -33,7 +40,7 @@ namespace Core.Services.Events
 
             try
             {
-                if (_eventListeners.TryGetValue(eventType, out Delegate handler))
+                if (_eventListeners.TryGetValue(eventType, out Delegate handler) && handler != null)
                 {
                     foreach (Delegate d in handler.GetInvocationList())
                     {

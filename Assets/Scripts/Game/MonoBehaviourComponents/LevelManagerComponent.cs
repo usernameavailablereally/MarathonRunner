@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Core.Services.Events;
 using Game.Events;
-using Game.Services;
 using UnityEngine;
 using VContainer;
 
@@ -12,6 +11,7 @@ namespace Game.MonoBehaviourComponents
     {
         [SerializeField] private float _velocity = 2;
         [SerializeField] private Transform _runnerSpawnPoint;
+        [SerializeField] private BackgroundRunnerComponent _backgroundRunnerComponent;
 
         private List<ColumnComponent> _columns;
         private List<ObstacleComponent> _currentObstacles;
@@ -34,11 +34,13 @@ namespace Game.MonoBehaviourComponents
         private void OnGameStart(GameStartEvent obj)
         {
             _isGameRunning = true;
+            _backgroundRunnerComponent.Run();
         }
 
         private void OnGameStop(GameStopEvent obj)
         {
             _isGameRunning = false;
+            _backgroundRunnerComponent.Stop();
         }
 
         public void InitColumns(List<ColumnComponent> columns)
@@ -128,16 +130,9 @@ namespace Game.MonoBehaviourComponents
             _dispatcherService.Unsubscribe<GameStopEvent>(OnGameStop);
             _dispatcherService.Unsubscribe<SpawnObstacleRequested>(OnSpawnObstacleRequested);
             _currentObstacles.Clear();
+            _columns.Clear();
+            _backgroundRunnerComponent.Dispose();
             _isGameRunning = false;
-        }
-    }
-
-    internal class ObstacleFinishedEvent : GameEventBase
-    {
-        public ObstacleComponent Obstacle;
-        public ObstacleFinishedEvent(ObstacleComponent currentObstacle)
-        {
-            Obstacle = currentObstacle;
-        }
+        } 
     }
 }

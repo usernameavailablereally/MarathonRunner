@@ -20,6 +20,28 @@ namespace Game.Services
         public void Tick()
         {
             CheckForMouseInput();
+            CheckForKeyboardInputTMP();
+        }
+
+        /// <summary>
+        /// This is for testing lifecycle behaviour
+        /// </summary>
+        private void CheckForKeyboardInputTMP()
+        {
+            // Restarting game
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                _dispatcherService.Dispatch(new RestartEntryPointEvent());
+            }
+            //
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                _dispatcherService.Dispatch(new RoundOverEvent());
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                _dispatcherService.Dispatch(new GameStartEvent());
+            }
         }
 
         private void CheckForMouseInput()

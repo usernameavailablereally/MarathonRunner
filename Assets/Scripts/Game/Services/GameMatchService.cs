@@ -47,7 +47,7 @@ namespace Game.Services
             _levelManager.InitObstacles();
             _levelManager.InitRunner(_runnerFactory.GetRunnerInstance());
             
-            _roundLogic.StartRound(_roundTokenSource.Token);
+            _roundLogic.StartRound(RoundTokenSource.Token);
         }
 
         public void Tick()
@@ -55,10 +55,13 @@ namespace Game.Services
             _roundLogic.OnTick();
         }
 
-        protected override void EndRound()
+        protected override void DisposeRound()
         {
             _roundLogic.EndRound();
-            //TODO WIPE FACTORIES
+            _obstaclesFactory.Clear();
+            _columnsFactory.Clear();
+            _runnerFactory.Clear();
+            _levelManager.Dispose();
         }
     }
 }

@@ -43,5 +43,11 @@ namespace Game.Services
         {
            return _runnerInstance;
         }
+
+        public override void Clear()
+        {
+            _runnerInstance.Dispose();
+            base.Clear();
+        }
     }
 }

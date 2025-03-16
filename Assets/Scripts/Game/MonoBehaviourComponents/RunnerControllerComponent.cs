@@ -35,7 +35,7 @@ namespace Game.MonoBehaviourComponents
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer(StringConstants.OBSTACLE_LAYER))
             {
-                _dispatcherService.Dispatch(new GameOverEvent());
+                _dispatcherService.Dispatch(new RoundOverEvent());
             }
             else if (collision.gameObject.layer == LayerMask.NameToLayer(StringConstants.GROUND_LAYER))
             {

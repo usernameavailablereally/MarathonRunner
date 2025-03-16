@@ -12,12 +12,12 @@ namespace Game.Services
         private const float SPAWN_THRESHOLD = 0.5f; 
         private const float SPAWN_OBSTACLE_INTERVAL = 1f;
         private readonly IDispatcherService _dispatcherService;
+        private readonly ObstaclesFactory _obstaclesFactory;
 
         // Needed for linking round-related Tasks (e.g. animations, delays)
         private CancellationToken _roundCancellationToken;
         private bool _isRoundRunning;
         private float _timeSinceLastSpawn;
-        ObstaclesFactory _obstaclesFactory;
 
         public RoundLogic(IDispatcherService dispatcherService, ObstaclesFactory obstaclesFactory)
         {

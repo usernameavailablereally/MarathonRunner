@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Game.MonoBehaviourComponents
 {
@@ -7,26 +6,29 @@ namespace Game.MonoBehaviourComponents
     {
         [SerializeField] private Renderer _background;
         [SerializeField] private float _velocity = 2; 
-        private bool _isRunning = false;
-
-        private void Start()
-        {
-            Run();
-        }
+        private bool _isActive = false;
 
         public void Run()
         {
-            Debug.Log("BackgroundRunnerComponent.Run");
+            _isActive = true;
         }
     
         public void Stop()
         {
-            Debug.Log("BackgroundRunnerComponent.Stop");
+            _isActive = false;
         }
 
         private void Update()
         {
-            _background.material.mainTextureOffset += new Vector2(0.015f, 0) * (_velocity * Time.deltaTime);
+            if (_isActive)
+            {
+                _background.material.mainTextureOffset += new Vector2(0.015f, 0) * (_velocity * Time.deltaTime);
+            }
+        }
+
+        public void Dispose()
+        {
+            _isActive = false;
         }
     }
 }

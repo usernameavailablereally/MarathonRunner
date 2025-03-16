@@ -38,6 +38,13 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    ProportionInPool: 70
+    ProportionInPool: 10
+  - ObstaclePrefab:
+      m_AssetGUID: f88aba93f97f640cbb64e7d5cb2605e0
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    ProportionInPool: 60
   AmountObstaclesInPool: 11
   MaxObstaclesOnScene: 5

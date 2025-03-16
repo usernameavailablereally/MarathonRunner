@@ -1,6 +1,6 @@
 namespace Core.Services.Events
 {
-    public class GameOverEvent : GameEventBase
+    public class RoundOverEvent : GameEventBase
     {
         
     }

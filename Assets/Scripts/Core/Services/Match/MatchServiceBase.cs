@@ -4,8 +4,6 @@ using Core.Services.Events;
 using Core.Services.Loaders;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 namespace Core.Services.Match
 {
@@ -13,7 +11,7 @@ namespace Core.Services.Match
     {
         private readonly IDispatcherService _dispatcherService;
 
-        protected CancellationTokenSource _roundTokenSource;
+        protected CancellationTokenSource RoundTokenSource;
         private IMatchData _matchData;
 
         protected MatchServiceBase(IDispatcherService dispatcherService)
@@ -23,7 +21,7 @@ namespace Core.Services.Match
 
         public virtual UniTask BuildScene(IAssetsLoader assetsLoader, CancellationToken buildCancellationToken)
         {
-            _dispatcherService.Subscribe<GameOverEvent>(OnGameOverEvent);
+            _dispatcherService.Subscribe<RoundOverEvent>(OnGameOverEvent);
             return UniTask.CompletedTask;
         } 
 
@@ -43,13 +41,13 @@ namespace Core.Services.Match
         private UniTask StartRound()
         {
             // Round token linked to round-items animations
-            _roundTokenSource?.Cancel();
-            _roundTokenSource = new CancellationTokenSource();
+            RoundTokenSource?.Cancel();
+            RoundTokenSource = new CancellationTokenSource();
 
             _matchData.UpdateRound();
             if (IsGameFinished())
             {
-                _dispatcherService.Dispatch(new RestartGameEvent());
+                _dispatcherService.Dispatch(new RestartEntryPointEvent());
                 return UniTask.CompletedTask;
             }
              
@@ -59,19 +57,18 @@ namespace Core.Services.Match
 
         protected abstract void StartRoundLogic();
 
-        protected abstract void EndRound();
+        protected abstract void DisposeRound();
 
         private bool IsGameFinished()
         {
             return false;
         }
 
-        private async void OnGameOverEvent(GameOverEvent obj)
+        private void OnGameOverEvent(RoundOverEvent obj)
         {
             try
             {
-                EndRound();
-                await StartRound();
+                DisposeRound();
             }
             catch (Exception e)
             {
@@ -81,7 +78,8 @@ namespace Core.Services.Match
 
         public void Dispose()
         {
-            _dispatcherService.Unsubscribe<GameOverEvent>(OnGameOverEvent);
+            DisposeRound();
+            _dispatcherService.Unsubscribe<RoundOverEvent>(OnGameOverEvent);
         }
     }
 }

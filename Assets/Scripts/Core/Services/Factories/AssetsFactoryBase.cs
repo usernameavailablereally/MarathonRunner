@@ -30,8 +30,10 @@ namespace Core.Services.Factories
 
             return prefabs;
         }
-
-        //TODO: RUn on dispose (check)
+        
+        /// <summary>
+        /// If the Factory has a pool or additional data, override the Clear for disposing it
+        /// </summary>
         public virtual void Clear()
         {
             foreach (AsyncOperationHandle<GameObject> handle in _handles)
@@ -47,7 +49,7 @@ namespace Core.Services.Factories
 
         private async Task<GameObject> LoadAssetReference(CancellationToken cancellationToken, AssetReference prefab)
         {
-            AsyncOperationHandle<GameObject> handle = prefab.InstantiateAsync();
+            AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync(prefab);
             _handles.Add(handle);
 
             GameObject instance = await handle.WithCancellation(cancellationToken);

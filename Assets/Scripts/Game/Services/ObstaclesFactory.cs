@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Core.Services.Factories;
 using Core.Services.Factories.Pools;
@@ -19,14 +20,14 @@ namespace Game.Services
             ValidateMatchConfigAsserts(matchConfig);
             try
             {
-                List<ObstacleComponent> obstacles = new List<ObstacleComponent>();
-                List<ObstacleData> weightedObstacles = new List<ObstacleData>();
+                var obstacles = new List<ObstacleComponent>();
+                var weightedObstacles = new List<ObstacleData>();
 
                 // Заполнение списка weightedObstacles в соответствии с пропорцией
                 foreach (ObstacleData obstacleData in matchConfig.ObstacleDatas)
                 {
                     float targetCount = matchConfig.AmountObstaclesInPool * ((float)obstacleData.ProportionInPool / 100);
-                    for (int i = 0; i < targetCount; i++)
+                    for (var i = 0; i < targetCount; i++)
                     {
                         var obstacle = await LoadPrefab<ObstacleComponent>(obstacleData.ObstaclePrefab, cancellationToken);
                         obstacles.Add(obstacle);
@@ -72,10 +73,10 @@ namespace Game.Services
 
         public override void Clear()
         {
+            // Addressables handle dispose is in base 
             base.Clear();
-
-            _obstaclesPool?.Clear();
-
+ 
+            _obstaclesPool?.Dispose();
             _obstaclesPool = null;
         }
 
@@ -83,6 +84,8 @@ namespace Game.Services
         {
             Assert.IsNotNull(config, "MatchConfig is null");
             Assert.IsTrue(config.ObstacleDatas.Length > 0, "Obstacles array is empty");
+            int proportionSum = config.ObstacleDatas.Sum(obstacle => obstacle.ProportionInPool);
+            Assert.IsTrue(proportionSum == 100, "Sum of proportions should be 100");
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace Core.Services.Factories.Pools
 {
+    // Manager for scene components. It does not have all the addressables handles
+    // Managing Addressables resources happens in FactoryBase scripts
     public class ObjectPool<T>
     {
         private readonly List<T> _objects;
@@ -31,7 +33,8 @@ namespace Core.Services.Factories.Pools
             _objects.Add(obj);
         }
         
-        public void Clear()
+        // this only disposes pool, not the Addressables handles
+        public void Dispose()
         {
             _objects.Clear();
         }

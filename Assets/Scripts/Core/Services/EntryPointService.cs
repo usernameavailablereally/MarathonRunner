@@ -10,6 +10,11 @@ using VContainer.Unity;
 
 namespace Core.Services
 {
+    /// <summary>
+    /// Concept of EntryPoint -> Services (Loading, Lobby, Match) -> Match.Rounds (Logics)
+    /// Rounds could be a collection of many, if required
+    /// There could be a LobbyService before MatchService, if many Scenes or Screens are intended
+    /// </summary>
     public class EntryPointService : IAsyncStartable, IDisposable
     {
         private readonly IMatchService _matchService;
@@ -45,6 +50,10 @@ namespace Core.Services
             ReStartAsync().Forget();
         }
 
+        /// <summary>
+        /// Restarting the EntryPoint.
+        /// No crucial need to have it, just showing how lifecycle is clean and idempotent 
+        /// </summary>
         private async UniTask ReStartAsync()
         {
             try
@@ -52,9 +61,7 @@ namespace Core.Services
                 _isRestarting = true;
                 _gameStartCancellationTokenSource?.Cancel();
                 _gameStartCancellationTokenSource?.Dispose();
-
-                // no crucial need to dispose and load again assets, just showing how lifecycle is clean and idempotent 
-                // can be easily removed if _matchService.BuildScene will be moved outside the ReStart pipeline
+ 
                 _matchService.Dispose();
 
                 _gameStartCancellationTokenSource = new CancellationTokenSource();

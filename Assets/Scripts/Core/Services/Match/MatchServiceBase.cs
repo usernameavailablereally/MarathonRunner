@@ -3,6 +3,7 @@ using System.Threading;
 using Core.Services.Events;
 using Core.Services.Loaders;
 using Cysharp.Threading.Tasks;
+using Game.Events;
 using UnityEngine;
 
 namespace Core.Services.Match
@@ -21,9 +22,10 @@ namespace Core.Services.Match
 
         public virtual UniTask BuildScene(IAssetsLoader assetsLoader, CancellationToken buildCancellationToken)
         {
-            _dispatcherService.Subscribe<RoundOverEvent>(OnGameOverEvent);
+            _dispatcherService.Subscribe<RoundOverEvent>(OnRoundOver);
+            _dispatcherService.Subscribe<RoundStartEvent>(OnRoundStart);
             return UniTask.CompletedTask;
-        } 
+        }
 
         public async UniTask RunGame()
         {
@@ -43,13 +45,6 @@ namespace Core.Services.Match
             // Round token linked to round-items animations
             RoundTokenSource?.Cancel();
             RoundTokenSource = new CancellationTokenSource();
-
-            _matchData.UpdateRound();
-            if (IsGameFinished())
-            {
-                _dispatcherService.Dispatch(new RestartEntryPointEvent());
-                return UniTask.CompletedTask;
-            }
              
             StartRoundLogic();
             return UniTask.CompletedTask;
@@ -64,7 +59,7 @@ namespace Core.Services.Match
             return false;
         }
 
-        private void OnGameOverEvent(RoundOverEvent obj)
+        private void OnRoundOver(RoundOverEvent obj)
         {
             try
             {
@@ -76,10 +71,15 @@ namespace Core.Services.Match
             }
         }
 
+        private void OnRoundStart(RoundStartEvent obj)
+        {
+            RunGame().Forget();
+        }
+
         public void Dispose()
         {
             DisposeRound();
-            _dispatcherService.Unsubscribe<RoundOverEvent>(OnGameOverEvent);
+            _dispatcherService.Unsubscribe<RoundOverEvent>(OnRoundOver);
         }
     }
 }

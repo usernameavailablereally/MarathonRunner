@@ -2,7 +2,7 @@ using Core.Services.Events;
 
 namespace Game.Events
 {
-    public class GameStopEvent : GameEventBase
+    public class RoundPauseStopEvent : GameEventBase
     {
         
     }

@@ -24,7 +24,7 @@ namespace Game.Services
         }
 
         /// <summary>
-        /// This is for testing lifecycle behaviour
+        /// This is for showcasing the game lifecycle behaviour
         /// </summary>
         private void CheckForKeyboardInputTMP()
         {
@@ -40,7 +40,7 @@ namespace Game.Services
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                _dispatcherService.Dispatch(new GameStartEvent());
+                _dispatcherService.Dispatch(new RoundStartEvent());
             }
         }
 

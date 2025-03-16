@@ -12,7 +12,7 @@ namespace Game.Services
     public class ColumnsFactory : AssetsFactoryBase
     {
         private const int COLUMNS_CEILING_COUNT = 20;
-        // no pool needed
+        // no pool needed, as only position changes
         private readonly List<ColumnComponent> _columns = new();
         
         public async Task Init(MatchConfig matchConfig, CancellationToken buildCancellationToken)
@@ -37,12 +37,6 @@ namespace Game.Services
         public List<ColumnComponent> GetAllColumns()
         {
             return _columns;
-        }
-        
-        public ColumnComponent GetColumnByIndex(int index)
-        {
-            ColumnComponent column = _columns[index]; 
-            return column;
         }
 
         private void ValidateColumnsConfigAsserts(MatchConfig matchConfig)

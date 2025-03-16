@@ -30,7 +30,7 @@ namespace Game.Services
             _roundCancellationToken = roundCancellationToken;
             _timeSinceLastSpawn = 0f;
             _isRoundRunning = true;
-            _dispatcherService.Dispatch(new GameStartEvent());
+            _dispatcherService.Dispatch(new RoundStartEvent());
             
             _dispatcherService.Subscribe<ObstacleFinishedEvent>(OnObstacleFinished);
         }

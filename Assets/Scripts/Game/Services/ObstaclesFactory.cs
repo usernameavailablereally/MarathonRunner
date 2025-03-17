@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using Game.Configs;
 using Game.MonoBehaviourComponents.LoadingAssets;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Game.Services
 {
@@ -68,10 +69,11 @@ namespace Game.Services
 
         private void ValidateMatchConfigAsserts(AssetsConfig config)
         {
-            Assert.IsNotNull(config, "AssetsConfig is null");
-            Assert.IsTrue(config.ObstacleDatas.Length > 0, "Obstacles array is empty");
+            Debug.Assert(config != null, "AssetsConfig is null");
+            Debug.Assert(config.ObstacleDatas.Length > 0, "Obstacles array is empty");
+
             int proportionSum = config.ObstacleDatas.Sum(obstacle => obstacle.ProportionInPool);
-            Assert.IsTrue(proportionSum == 100, "Sum of obstacles proportions should be 100");
+            Debug.Assert(proportionSum == 100, "Sum of obstacles proportions should be 100");
         }
     }
 }

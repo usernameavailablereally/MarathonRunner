@@ -4,7 +4,7 @@ using Core.Services.Factories;
 using Cysharp.Threading.Tasks;
 using Game.Configs;
 using Game.MonoBehaviourComponents.LoadingAssets;
-using NUnit.Framework;
+using UnityEngine;
 
 namespace Game.Services
 {
@@ -39,8 +39,8 @@ namespace Game.Services
 
         private void ValidateColumnsConfigAsserts(AssetsConfig assetsConfig)
         {
-            Assert.IsNotNull(assetsConfig, "AssetsConfig is null");
-            Assert.IsNotNull(assetsConfig.ColumnPrefab, "Column is null");
+            Debug.Assert(assetsConfig != null, "AssetsConfig is null");
+            Debug.Assert(assetsConfig.ColumnPrefab != null, "Column is null");
         }
     }
 }

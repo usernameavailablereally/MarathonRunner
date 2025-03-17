@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Game.Configs;
 using Game.MonoBehaviourComponents.LoadingAssets;
 using NUnit.Framework;
+using UnityEngine;
 using VContainer;
 
 namespace Game.Services
@@ -35,8 +36,8 @@ namespace Game.Services
         
         private void ValidateMatchConfigAsserts(AssetsConfig assetsConfig)
         {
-            Assert.IsNotNull(assetsConfig, "AssetsConfig is null");
-            Assert.IsNotNull(assetsConfig.RunnerPrefab, "Runner is null");
+            Debug.Assert(assetsConfig != null, "AssetsConfig is null");
+            Debug.Assert(assetsConfig.RunnerPrefab !=null, "Runner is null");
         }
 
         public RunnerControllerComponent GetRunnerInstance()

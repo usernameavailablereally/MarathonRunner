@@ -524,6 +524,17 @@
                 },
                 {
                     "name": "",
+                    "id": "87c2e8ff-ea29-492a-b81e-00ea6ef342d8",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1fdbe868-2963-4024-b9fd-ff64a61f6c7d",
                     "path": "<Keyboard>/r",
                     "interactions": "",

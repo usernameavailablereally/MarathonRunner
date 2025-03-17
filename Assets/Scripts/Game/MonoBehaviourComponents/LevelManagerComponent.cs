@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.Services.Events;
 using Game.Configs;
 using Game.Events;
-using Game.MonoBehaviourComponents.Objects;
+using Game.MonoBehaviourComponents.LoadingAssets;
 using UnityEngine;
 using VContainer;
 

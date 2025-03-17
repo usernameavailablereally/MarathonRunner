@@ -5,7 +5,7 @@ using Core.Services.Factories;
 using Core.Services.Factories.Pools;
 using Cysharp.Threading.Tasks;
 using Game.Configs;
-using Game.MonoBehaviourComponents.Objects;
+using Game.MonoBehaviourComponents.LoadingAssets;
 using NUnit.Framework;
 
 namespace Game.Services

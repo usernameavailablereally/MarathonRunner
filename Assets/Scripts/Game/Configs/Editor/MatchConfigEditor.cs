@@ -1,11 +1,11 @@
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using System.Reflection;
 
-namespace Game.Configs
+namespace Game.Configs.Editor
 {
     [CustomEditor(typeof(MatchConfig))]
-    public class MatchConfigEditor : Editor
+    public class MatchConfigEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

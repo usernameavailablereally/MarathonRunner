@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Core.Services.Factories;
+using Cysharp.Threading.Tasks;
 using Game.Configs;
-using Game.MonoBehaviourComponents.Objects;
+using Game.MonoBehaviourComponents.LoadingAssets;
 using NUnit.Framework;
 
 namespace Game.Services
@@ -14,7 +14,7 @@ namespace Game.Services
         // no pool needed, as only position changes
         private readonly List<ColumnComponent> _columns = new();
         
-        public async Task Init(AssetsConfig assetsConfig, CancellationToken buildCancellationToken)
+        public async UniTask Init(AssetsConfig assetsConfig, CancellationToken buildCancellationToken)
         {
             ValidateColumnsConfigAsserts(assetsConfig);
             try

@@ -16,17 +16,17 @@ MonoBehaviour:
   m_GUID: 728a91ec25dbe4eabbd17107ccb71f16
   m_SerializeEntries:
   - m_GUID: 121e20f53e41b478889fc002f67a7b75
-    m_Address: Assets/Prefabs/Piedra2.prefab
+    m_Address: Assets/Prefabs/Obstacle2.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3a9b6745d815a463ca460b5fddf41158
-    m_Address: Column
+    m_Address: Assets/Prefabs/Column.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 45ea58022d18a49ff96c90bd0ad48962
-    m_Address: Runner
+    m_Address: Assets/Prefabs/Runner.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: facef30d4e7794a88a0be255cf432f30
-    m_Address: Assets/Prefabs/Piedra1.prefab
+    m_Address: Assets/Prefabs/Obstacle1.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

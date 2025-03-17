@@ -1,5 +1,5 @@
 using Core.Services.Events;
-using Game.MonoBehaviourComponents.Objects;
+using Game.MonoBehaviourComponents.LoadingAssets;
 
 namespace Game.Events
 {

@@ -2,7 +2,7 @@ using System.Threading;
 using Core.Services.Factories;
 using Cysharp.Threading.Tasks;
 using Game.Configs;
-using Game.MonoBehaviourComponents.Objects;
+using Game.MonoBehaviourComponents.LoadingAssets;
 using NUnit.Framework;
 using VContainer;
 

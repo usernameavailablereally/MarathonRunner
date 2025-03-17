@@ -15,11 +15,6 @@ namespace Game.MonoBehaviourComponents.LoadingAssets
             _transform.gameObject.SetActive(false);
         }
 
-        public void TranslatePosition(Vector3 translationVector)
-        {
-            _transform.Translate(translationVector);
-        }
-
         public void SetPosition(Vector3 position)
         {
             _transform.position = position;

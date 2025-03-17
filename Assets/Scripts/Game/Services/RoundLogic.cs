@@ -12,12 +12,10 @@ namespace Game.Services
     {
         private readonly IDispatcherService _dispatcherService;
         private readonly ObstaclesFactory _obstaclesFactory;
-
-        // Needed for linking round-related Tasks (e.g. animations, delays)
-        private CancellationToken _roundCancellationToken;
         private bool _isRoundRunning;
         private float _timeSinceLastSpawn;
         readonly MatchConfig _matchConfig;
+        
         // this value is independent of the one calculated in UI RoundTimer
         private float _roundStartTime;
 
@@ -30,7 +28,6 @@ namespace Game.Services
 
         public void StartRound(CancellationToken roundCancellationToken)
         {
-            _roundCancellationToken = roundCancellationToken;
             _timeSinceLastSpawn = 0f;
             _isRoundRunning = true;
             _roundStartTime = Time.time;

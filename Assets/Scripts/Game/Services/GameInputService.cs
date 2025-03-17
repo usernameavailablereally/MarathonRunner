@@ -19,14 +19,14 @@ namespace Game.Services
         {
             _dispatcherService = dispatcherService;
 
-            _leftButtonOrTouchAction = inputActionAsset.FindAction("Jump");
+            _leftButtonOrTouchAction = inputActionAsset.FindAction(StringConstants.JUMP_INPUT_NAME);
             _leftButtonOrTouchAction.performed += OnJumpPerformed; 
             
             // This is for showcasing the game lifecycle behaviour
-            _restartAction = inputActionAsset.FindAction("Restart");
+            _restartAction = inputActionAsset.FindAction(StringConstants.RESTART_INPUT_NAME);
             _restartAction.performed += ctx => _dispatcherService.Dispatch(new RestartEntryPointEvent());
            
-            _gameOverAction = inputActionAsset.FindAction("GameOVer");
+            _gameOverAction = inputActionAsset.FindAction(StringConstants.GAME_OVER_INPUT_NAME);
             _gameOverAction.performed += ctx => _dispatcherService.Dispatch(new ObstacleHitEvent());
 
             _leftButtonOrTouchAction.Enable();

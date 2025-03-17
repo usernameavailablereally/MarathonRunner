@@ -5,7 +5,7 @@ namespace Game.Events
 {
     internal class ObstacleFinishedEvent : GameEventBase
     {
-        public ObstacleComponent Obstacle;
+        public readonly ObstacleComponent Obstacle;
         public ObstacleFinishedEvent(ObstacleComponent currentObstacle)
         {
             Obstacle = currentObstacle;

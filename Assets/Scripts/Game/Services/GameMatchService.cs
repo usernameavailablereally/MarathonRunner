@@ -16,7 +16,6 @@ namespace Game.Services
         private readonly ColumnsFactory _columnsFactory;
         private readonly RunnerFactory _runnerFactory;
         private readonly LevelManagerComponent _levelManager;
-        private readonly MatchConfig _matchConfig;
         private readonly AssetsConfig _assetsConfig;
 
         public GameMatchService(
@@ -26,13 +25,12 @@ namespace Game.Services
             IObjectResolver objectResolver,
             IDispatcherService dispatcherService) : base(dispatcherService)
         {
-            _matchConfig = matchConfig;
             _assetsConfig = assetsConfig;
             _levelManager = levelManager;
             _obstaclesFactory = new ObstaclesFactory();
             _columnsFactory = new ColumnsFactory();
             _runnerFactory = new RunnerFactory(objectResolver);
-            _roundLogic = new RoundLogic(_matchConfig, dispatcherService, _obstaclesFactory);
+            _roundLogic = new RoundLogic(matchConfig, dispatcherService, _obstaclesFactory);
         }
 
         // here could be added percentage update events for Loading screen, after each await
@@ -47,8 +45,7 @@ namespace Game.Services
         protected override void StartRoundLogic()
         {
             _levelManager.InitEvents();
-            _levelManager.InitColumns(_columnsFactory.GetAllColumns());
-            _levelManager.InitObstacles();
+            _levelManager.InitEnvironment(_columnsFactory.GetAllColumns());
             _levelManager.InitRunner(_runnerFactory.GetRunnerInstance());
             
             _roundLogic.StartRound(RoundTokenSource.Token);

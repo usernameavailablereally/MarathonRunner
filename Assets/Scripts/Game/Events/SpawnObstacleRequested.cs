@@ -5,7 +5,7 @@ namespace Game.Events
 {
     public class SpawnObstacleRequested : GameEventBase
     {
-        public ObstacleComponent SpawnedObstacle;
+        public readonly ObstacleComponent SpawnedObstacle;
         public SpawnObstacleRequested(ObstacleComponent spawnedObstacle)
         {
             SpawnedObstacle = spawnedObstacle;

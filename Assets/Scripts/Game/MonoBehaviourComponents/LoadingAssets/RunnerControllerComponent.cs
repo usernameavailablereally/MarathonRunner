@@ -24,10 +24,9 @@ namespace Game.MonoBehaviourComponents.LoadingAssets
             _transform = transform;
         }
 
-        private void OnPlayerJump(PlayerJumpEvent obj)
+        public void Activate()
         {
-            _rigidbody.AddForce(new Vector2(0, _jumpFactor));
-            _animator.SetTrigger(StringConstants.JumpTriggerName);
+            _transform.gameObject.SetActive(true);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -42,24 +41,25 @@ namespace Game.MonoBehaviourComponents.LoadingAssets
             }
         }
 
+        private void OnPlayerJump(PlayerJumpEvent obj)
+        {
+            _rigidbody.AddForce(new Vector2(0, _jumpFactor));
+            _animator.SetTrigger(StringConstants.JumpTriggerName);
+        }
+
         public void Dispose()
         {
             _dispatcherService.Unsubscribe<PlayerJumpEvent>(OnPlayerJump);
         }
 
-        public void Activate()
-        {
-            _transform.gameObject.SetActive(true);
-        }
-
-        public void Deactivate()
-        {
-            _transform.gameObject.SetActive(false);
-        }
-
         public void SetPosition(Vector3 position)
         {
             _transform.position = position;
+        }
+
+        public void SetParent(Transform parent)
+        {
+            _transform.SetParent(parent);
         }
     }
 }

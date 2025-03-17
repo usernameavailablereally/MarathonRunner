@@ -3,7 +3,6 @@ using Core.Services.Factories;
 using Cysharp.Threading.Tasks;
 using Game.Configs;
 using Game.MonoBehaviourComponents.LoadingAssets;
-using NUnit.Framework;
 using UnityEngine;
 using VContainer;
 

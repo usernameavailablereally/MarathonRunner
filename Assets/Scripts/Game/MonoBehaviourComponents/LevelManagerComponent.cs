@@ -42,21 +42,14 @@ namespace Game.MonoBehaviourComponents
         public void InitEvents()
         {
             _dispatcherService.Subscribe<RoundStartEvent>(OnRoundStart);
-            _dispatcherService.Subscribe<RoundPauseStopEvent>(OnRoundPause);
             _dispatcherService.Subscribe<SpawnObstacleRequested>(OnSpawnObstacleRequested);
         }
 
         private void OnRoundStart(RoundStartEvent obj)
         {
             _isGameRunning = true;
-            _backgroundRunnerComponent.Activate();
-            _roundTimer.StartTimer();
-        }
-
-        private void OnRoundPause(RoundPauseStopEvent obj)
-        {
-            _isGameRunning = false;
-            _roundTimer.StopTimer();
+            _backgroundRunnerComponent.Activate(_matchConfig.MovingVelocity);
+            _roundTimer.Activate();
         }
 
         public void InitColumns(List<ColumnComponent> columns)
@@ -144,12 +137,11 @@ namespace Game.MonoBehaviourComponents
         public void Dispose()
         {
             _dispatcherService.Unsubscribe<RoundStartEvent>(OnRoundStart);
-            _dispatcherService.Unsubscribe<RoundPauseStopEvent>(OnRoundPause);
             _dispatcherService.Unsubscribe<SpawnObstacleRequested>(OnSpawnObstacleRequested);
             _currentObstacles.Clear();
             _columns.Clear();
             _backgroundRunnerComponent.Deactivate();
-            _roundTimer.StopTimer();
+            _roundTimer.Deactivate();
             _isGameRunning = false;
         } 
     }

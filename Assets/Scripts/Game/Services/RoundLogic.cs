@@ -18,6 +18,8 @@ namespace Game.Services
         private bool _isRoundRunning;
         private float _timeSinceLastSpawn;
         readonly MatchConfig _matchConfig;
+        // this value is independent of the one calculated in UI RoundTimer
+        private float _roundStartTime;
 
         public RoundLogic(MatchConfig matchConfig, IDispatcherService dispatcherService, ObstaclesFactory obstaclesFactory)
         {
@@ -31,9 +33,11 @@ namespace Game.Services
             _roundCancellationToken = roundCancellationToken;
             _timeSinceLastSpawn = 0f;
             _isRoundRunning = true;
+            _roundStartTime = Time.time;
             _dispatcherService.Dispatch(new RoundStartEvent());
 
             _dispatcherService.Subscribe<ObstacleFinishedEvent>(OnObstacleFinished);
+            _dispatcherService.Subscribe<ObstacleHitEvent>(OnObstacleHit);
         }
 
         public void EndRound()
@@ -83,6 +87,12 @@ namespace Game.Services
         private void OnObstacleFinished(ObstacleFinishedEvent data)
         {
             _obstaclesFactory.Return(data.Obstacle);
+        }
+
+        private void OnObstacleHit(ObstacleHitEvent obj)
+        {
+            float roundDuration = Time.time - _roundStartTime;
+            _dispatcherService.Dispatch(new RoundOverEvent(roundDuration));
         }
     }
 }

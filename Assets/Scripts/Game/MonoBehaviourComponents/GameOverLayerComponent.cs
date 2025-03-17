@@ -1,6 +1,7 @@
 using System;
 using Core.Services.Events;
 using Game.Events;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -10,6 +11,7 @@ namespace Game.MonoBehaviourComponents
    public class GameOverLayerComponent : MonoBehaviour, IDisposable
    {
       [SerializeField] private Button _restartButton;
+      [SerializeField] private TextMeshProUGUI _roundResultText;
 
       private IDispatcherService _dispatcherService;
 
@@ -35,6 +37,7 @@ namespace Game.MonoBehaviourComponents
 
       private void OnRoundOver(RoundOverEvent data)
       {
+         _roundResultText.text = $"Round result: {data.TimeRecord} seconds";
          gameObject.SetActive(true);
       }
 

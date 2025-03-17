@@ -18,21 +18,25 @@ namespace Game.MonoBehaviourComponents
             UpdateTimerText();
         }
 
-        public void StartTimer()
+        public void Activate()
         {
             _elapsedTime = 0f;
             _isRunning = true;
+            gameObject.SetActive(true);
         }
 
-        public void StopTimer()
+        public void Deactivate()
         {
+            if (this == null) return;
+            
             _isRunning = false;
+            gameObject.SetActive(false);
         }
 
         private void UpdateTimerText()
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds(_elapsedTime);
-            _timerText.text = $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+            _timerText.text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}:{timeSpan.Milliseconds:D2}";
         }
     }
 }

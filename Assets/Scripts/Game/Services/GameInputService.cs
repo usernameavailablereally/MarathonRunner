@@ -1,67 +1,46 @@
 using Core.Services.Events;
 using Game.Events;
-using UnityEngine;
+using UnityEngine.InputSystem;
+using VContainer;
 using VContainer.Unity;
 
 namespace Game.Services
 {
     public class GameInputService : ITickable
     {
-        private readonly IDispatcherService _dispatcherService; 
-        private bool _isWaitingForMouseUp;    
-        private bool IsLeftButtonDown() => Input.GetMouseButtonDown(0);
-        private bool IsLeftButtonUp() => Input.GetMouseButtonUp(0);
+        private readonly IDispatcherService _dispatcherService;
+        private bool _isWaitingForMouseUp;
+        private readonly InputAction _leftButtonOrTouchAction;
+        private readonly InputAction _restartAction;
+        private readonly InputAction _gameOverAction;
         
-        public GameInputService(IDispatcherService dispatcherService)
+        [Inject]
+        public GameInputService(InputActionAsset inputActionAsset, IDispatcherService dispatcherService)
         {
             _dispatcherService = dispatcherService;
+
+            _leftButtonOrTouchAction = inputActionAsset.FindAction("Jump");
+            _leftButtonOrTouchAction.performed += OnJumpPerformed; 
+            
+            // This is for showcasing the game lifecycle behaviour
+            _restartAction = inputActionAsset.FindAction("Restart");
+            _restartAction.performed += ctx => _dispatcherService.Dispatch(new RestartEntryPointEvent());
+           
+            _gameOverAction = inputActionAsset.FindAction("GameOVer");
+            _gameOverAction.performed += ctx => _dispatcherService.Dispatch(new ObstacleHitEvent());
+
+            _leftButtonOrTouchAction.Enable();
+            _restartAction.Enable();
+            _gameOverAction.Enable();
+        }
+
+        private void OnJumpPerformed(InputAction.CallbackContext obj)
+        {
+            _dispatcherService.Dispatch(new PlayerJumpEvent());
         }
 
         public void Tick()
-        {
-            CheckForMouseInput();
-            CheckForKeyboardInputTMP();
+        { 
         }
-
-        /// <summary>
-        /// This is for showcasing the game lifecycle behaviour
-        /// </summary>
-        private void CheckForKeyboardInputTMP()
-        {
-            // Restarting game
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                _dispatcherService.Dispatch(new RestartEntryPointEvent());
-            }
-            // Forcing Game Over
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                _dispatcherService.Dispatch(new RoundOverEvent());
-            }
-            // Pausing round
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                _dispatcherService.Dispatch(new RoundPauseStopEvent());
-            }
-            
-        }
-
-        private void CheckForMouseInput()
-        {
-            if (_isWaitingForMouseUp)
-            {
-                if (IsLeftButtonUp())
-                {
-                    _isWaitingForMouseUp = false;
-                }
-                return;
-            }
-
-            if (IsLeftButtonDown())
-            {
-                _dispatcherService.Dispatch(new PlayerJumpEvent());
-                _isWaitingForMouseUp = true;
-            }
-        } 
     }
 }

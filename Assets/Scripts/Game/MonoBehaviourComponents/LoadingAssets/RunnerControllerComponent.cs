@@ -15,8 +15,7 @@ namespace Game.MonoBehaviourComponents.LoadingAssets
         [SerializeField] private Animator _animator;
 
         private IDispatcherService _dispatcherService;
-
-// TODO MOVE PLAYER NOT WORLD
+ 
         [Inject]
         public void Construct(IDispatcherService dispatcherService)
         {

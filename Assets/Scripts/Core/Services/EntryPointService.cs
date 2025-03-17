@@ -24,7 +24,7 @@ namespace Core.Services
 
         [Inject]
         public EntryPointService(IMatchService matchService, IDispatcherService dispatcherService)
-        {
+        { 
             _matchService = matchService ?? throw new ArgumentNullException(nameof(matchService));
             _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService));
             _dispatcherService.Subscribe<RestartEntryPointEvent>(OnRestartTriggered);
@@ -32,6 +32,7 @@ namespace Core.Services
 
         public async UniTask StartAsync(CancellationToken cancellation)
         {
+            Application.targetFrameRate = 60;
             if (_disposed) throw new ObjectDisposedException(nameof(EntryPointService));
         
             _gameStartCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellation);

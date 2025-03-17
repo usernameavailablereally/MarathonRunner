@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37a88a473b9b144db8578210cb06f48b
+    m_Address: AssetsConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3a9b6745d815a463ca460b5fddf41158
     m_Address: Assets/Prefabs/Column.prefab
     m_ReadOnly: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6175712147710995695}
   - component: {fileID: 1798168835898104595}
   - component: {fileID: 354926256979144810}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Map_4 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -50,9 +50,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -96,7 +93,6 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 664805760603587144}
   m_Enabled: 1
-  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -120,8 +116,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,6 +127,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
+  serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1872000738337016280
@@ -144,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6495962605035681027}
   - component: {fileID: 3971990181885301044}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Map_7 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -183,9 +179,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -231,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7150265431197865131}
   - component: {fileID: 7281651399345159464}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Map_11 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -270,9 +263,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -319,7 +309,7 @@ GameObject:
   - component: {fileID: 8565483301126815597}
   - component: {fileID: 8565483301126815598}
   - component: {fileID: 8565483301126815599}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Map_4
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -358,9 +348,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -404,7 +391,6 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8565483301126815596}
   m_Enabled: 1
-  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -428,8 +414,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -440,6 +425,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
+  serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &8565483301542096623
@@ -452,7 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8565483301542096616}
   - component: {fileID: 5509760393163862232}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Column
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -503,7 +489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8565483301670631168}
   - component: {fileID: 8565483301670631169}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Map_11
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -542,9 +528,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -590,7 +573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8565483301802285916}
   - component: {fileID: 8565483301802285917}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Map_7
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -629,9 +612,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

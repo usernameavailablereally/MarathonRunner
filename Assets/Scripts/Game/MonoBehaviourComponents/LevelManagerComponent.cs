@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Services.Events;
 using Game.Configs;
+using Game.Controllers;
 using Game.Events;
 using Game.MonoBehaviourComponents.LoadingAssets;
 using UnityEngine;

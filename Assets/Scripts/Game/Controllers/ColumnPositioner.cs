@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Game.MonoBehaviourComponents.LoadingAssets;
 using UnityEngine;
 
-namespace Game.MonoBehaviourComponents
+namespace Game.Controllers
 {
     public interface IGroundHitHandler
     {

@@ -1,15 +1,14 @@
+using System;
 using Core.Services.Events;
 using Game.Events;
 using UnityEngine.InputSystem;
 using VContainer;
-using VContainer.Unity;
 
 namespace Game.Services
 {
-    public class GameInputService : ITickable
+    public class GameInputService : IDisposable, IGameInput
     {
         private readonly IDispatcherService _dispatcherService;
-        private bool _isWaitingForMouseUp;
         private readonly InputAction _leftButtonOrTouchAction;
         private readonly InputAction _restartAction;
         private readonly InputAction _gameOverAction;
@@ -28,10 +27,21 @@ namespace Game.Services
            
             _gameOverAction = inputActionAsset.FindAction(StringConstants.GAME_OVER_INPUT_NAME);
             _gameOverAction.performed += ctx => _dispatcherService.Dispatch(new ObstacleHitEvent());
+        }
 
+        public void Enable()
+        {
             _leftButtonOrTouchAction.Enable();
             _restartAction.Enable();
             _gameOverAction.Enable();
+        }
+
+        public void Disable()
+        {
+            _leftButtonOrTouchAction.Disable();
+            _restartAction.Disable();
+            _gameOverAction.Disable();
+            
         }
 
         private void OnJumpPerformed(InputAction.CallbackContext obj)
@@ -39,8 +49,18 @@ namespace Game.Services
             _dispatcherService.Dispatch(new PlayerJumpEvent());
         }
 
-        public void Tick()
-        { 
+        public void Dispose()
+        {
+            _leftButtonOrTouchAction?.Dispose();
+            _restartAction?.Dispose();
+            _gameOverAction?.Dispose();
+            Disable();
         }
+    }
+
+    public interface IGameInput
+    {
+        void Enable();
+        void Disable();
     }
 }

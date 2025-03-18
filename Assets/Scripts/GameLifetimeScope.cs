@@ -49,9 +49,9 @@ public class GameLifetimeScope : LifetimeScope
     } 
     private void RegisterInterfaces(IContainerBuilder builder)
     {
-        builder.Register<GameInputService>(Lifetime.Singleton).AsImplementedInterfaces();
-        builder.Register<GameMatchService>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<DispatcherService>(Lifetime.Singleton).AsImplementedInterfaces();
+        builder.Register<GameInputService>(Lifetime.Singleton).AsImplementedInterfaces(); 
+        builder.Register<GameMatchService>(Lifetime.Singleton).AsImplementedInterfaces();
     }
     
     private void RegisterEntryPoints(IContainerBuilder builder)

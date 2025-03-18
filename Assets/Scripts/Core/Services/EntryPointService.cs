@@ -3,6 +3,7 @@ using System.Threading;
 using Core.Services.Events;
 using Core.Services.Match;
 using Cysharp.Threading.Tasks;
+using Game.Services;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -18,13 +19,15 @@ namespace Core.Services
     {
         private readonly IMatchService _matchService;
         private readonly IDispatcherService _dispatcherService;
+        private IGameInput _gameInput;
         private CancellationTokenSource _gameStartCancellationTokenSource;
         private bool _isRestarting;
         private bool _disposed;
 
         [Inject]
-        public EntryPointService(IMatchService matchService, IDispatcherService dispatcherService)
+        public EntryPointService(IGameInput gameInput, IMatchService matchService, IDispatcherService dispatcherService)
         { 
+            _gameInput = gameInput;
             _matchService = matchService ?? throw new ArgumentNullException(nameof(matchService));
             _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService));
             _dispatcherService.Subscribe<RestartEntryPointEvent>(OnRestartTriggered);
@@ -39,6 +42,7 @@ namespace Core.Services
         
             await _matchService.BuildScene(_gameStartCancellationTokenSource.Token);
             await _matchService.RunGame();
+            _gameInput.Enable();
         }
 
         private void OnRestartTriggered(RestartEntryPointEvent data)
@@ -59,7 +63,8 @@ namespace Core.Services
                 _isRestarting = true;
                 _gameStartCancellationTokenSource?.Cancel();
                 _gameStartCancellationTokenSource?.Dispose();
- 
+                
+                _gameInput.Disable();
                 _matchService.Dispose();
 
                 _gameStartCancellationTokenSource = new CancellationTokenSource();

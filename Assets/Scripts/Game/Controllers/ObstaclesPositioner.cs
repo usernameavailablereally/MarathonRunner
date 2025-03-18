@@ -3,7 +3,7 @@ using Game.Events;
 using Game.MonoBehaviourComponents.LoadingAssets;
 using UnityEngine;
 
-namespace Game.MonoBehaviourComponents
+namespace Game.Controllers
 {
     public interface IObstacleHitHandler
     {
